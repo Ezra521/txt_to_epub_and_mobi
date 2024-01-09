@@ -102,4 +102,4 @@ def txt2epub(save_as_path, text_file_path, cover_image_path, bookname, author, s
     pass
 
 
-txt2epub('戮仙.epub', '戮仙.txt', '', bookname='戮仙', author='萧鼎')
+txt2epub('output/戮仙.epub', 'input/戮仙.txt', '', bookname='戮仙', author='萧鼎')
