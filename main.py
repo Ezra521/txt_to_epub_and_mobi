@@ -21,7 +21,7 @@ def txt2epub(save_as_path, text_file_path, cover_image_path, bookname, author, s
     :param step: 多少章节作文一个html文件
     :return:
     """
-    print(text_file_path)
+    print("输入文件为", text_file_path)
     if os.path.exists(text_file_path):
         print("开始转换文件")
         with open(text_file_path, "r", encoding="utf-8") as f:
@@ -35,7 +35,10 @@ def txt2epub(save_as_path, text_file_path, cover_image_path, bookname, author, s
 
             # 按章节分组[(章节1标题,章节1内容）,(章节2标题,章节2内容),...]
             items = [(splits[i], splits[i + 1]) for i in range(1, len(splits) - 1, 2)]
-
+            items = [(item[0], item[1].replace("\u3000", "")) for item in items]
+            items = [
+                (item[0], item[1].replace("\n", "<br/>\u3000\u3000")) for item in items
+            ]
             # 按step章节分组，组成　[[(章节标题,章节内容）,(章节标题,章节内容)],.....]
             # 后续写入压缩文件时，按分组作为一个xhtml文件
             parts = [items[i : i + step] for i in range(0, len(items), step)]
@@ -100,4 +103,15 @@ def txt2epub(save_as_path, text_file_path, cover_image_path, bookname, author, s
     pass
 
 
-txt2epub("output/戮仙.epub", "input/戮仙.txt", "", bookname="戮仙", author="萧鼎")
+input_txt = "input/戮仙.txt"
+output_epub = "output/戮仙.epub"
+
+# 判断文件是否存在
+if os.path.exists(output_epub):
+    # 删除文件
+    os.remove(output_epub)
+    print(f"文件 {output_epub} 已删除。")
+else:
+    print(f"文件 {output_epub} 不存在。")
+
+txt2epub(output_epub, input_txt, "", bookname="戮仙", author="萧鼎")
