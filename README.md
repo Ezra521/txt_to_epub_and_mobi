@@ -10,5 +10,5 @@ template/cover.jpeg
 ```
 #### 2.epub2mobi
 ```shell
- ./kindlegen  xxx.mobi xxx.epub
+./kindlegen  xxx.mobi xxx.epub
 ```
